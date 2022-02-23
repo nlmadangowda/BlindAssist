@@ -1,0 +1,28 @@
+list of included features.
+1. object detection.
+2. image to text to speach.
+3. Obltacle Detection.
+4. Walking Assist.
+
+List of Components.
+1. Raspberry Pi Zerp 2 W: bcz of its small form factor and huge processing power.
+2. Raspberry Pi Camera module: for Image capturing.
+3. Wired Ear Phone/Speaker (any): for Voice Assistance.
+4. Vibration Motor (no Specific Part name yet): for notifing the user.
+5. HC-SR0 UltraSonic sensor: for Obltacle Detection.
+6. Battery(No Specific Part name yet): To power the Raspberry Pi.
+
+Efficiency: Cant be determined at the design stage. and mostly it depnds on the API.
+
+Algorithm: Not Sure about the name, used by google in the backend, need to do some resarch.
+
+Latency: Since the Processing is not done on board, the captured image is analysed using Google Vision API in cloud,
+it depends on the network availblity and strength. 
+
+Methodology:
+Step 1: Raspberry Pi board set up (OS flashing)
+Step 2: Installing the dependecies (Vission API)
+Step 3: Integrating the Input Devices (Camera & HC-SR0)
+Step 4: Integrating the Output Devices (Speaker)
+Step 5: Collecting the samples from the sensor devices(Camera & HC-SR0), with a fixed time (500ms to 2s)
+Step 6: Analysing the data and taking required action.
