@@ -26,3 +26,13 @@ Step 3: Integrating the Input Devices (Camera & HC-SR0)
 Step 4: Integrating the Output Devices (Speaker)
 Step 5: Collecting the samples from the sensor devices(Camera & HC-SR0), with a fixed time (500ms to 2s)
 Step 6: Analysing the data and taking required action.
+
+
+Step 1: enter this cmd on powershell 
+$env:GOOGLE_APPLICATION_CREDENTIALS="D:\first-geode-340815-476da4a478e6.json"
+
+OR this cmd on cmd prompt
+set GOOGLE_APPLICATION_CREDENTIALS=D:\first-geode-340815-476da4a478e6.json
+
+Step 2: enter this command on Google CLOUDE SDK
+gcloud auth application-default print-access-token
