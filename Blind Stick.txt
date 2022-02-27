@@ -36,3 +36,5 @@ set GOOGLE_APPLICATION_CREDENTIALS=D:\first-geode-340815-476da4a478e6.json
 
 Step 2: enter this command on Google CLOUDE SDK
 gcloud auth application-default print-access-token
+
+https://cloud.google.com/sdk/docs/install#linux

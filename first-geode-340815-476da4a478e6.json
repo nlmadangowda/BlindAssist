@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "first-geode-340815",
+  "private_key_id": "476da4a478e6194b47d0ddb40d53334ee56d7c4b",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQCn7Yj8Oy4vO8jm\n6M2BRsIU69y+bMSa8xfRV2cIMVj+y5XziINWs1zSflNvwpvHyAT/+aq0ahVKN+jI\nhb3qEcOAV64RE0ytbQ4Lzr1iEhtdHJRR3cZS4EEse5DGxvZTNOzHVOHSil4ta1/Q\nFMiQaNh/9KCiwt5m+6xTQbFJxQ0OXBAG8Yn+ZFhciWqPEHaQjtJSEjfTOUvQeWNd\nAJEpu1O+Xg5U4VlBzVnoFK4L5CIWxAtOLpUwSosDLcGAcR+D7mlMIaYcSoUtkBmx\nD5KIGX6bWr1EhY4vRJmaGYSNCRHnRwkSZybQznz4bfwku32K9fLo5SYfnMy3rwD5\n8+IRVfHBAgMBAAECggEADayWNGvUdYlgJHI3YcKGq7hB4zCG/4ZLnZyI/RRmBpsP\nXKOOH/Fx3byAENN/ZrcPHF6SzvQgd0jlzlMaeHf2PBPOG2fZHS1XMN3AQCWKguKz\n4fxPWcPj3e2fh8z/YlEmwsIfs8qlCclhJb5VHD7dYLX/BDuE0eZgGiHfgBe12duP\nFBs3ywnayRGaZaw4sVdIQWQx+Uhn7CaXk2lDXUMgc4eq6k+aN3GeR1mgm4OnklrX\nbBM+MG1ZlzU9LH3+R2jk9Wyv+MO/idVmG2pv8v2NfI8RWzTSa8/nvZ1PO0lfPic7\nG5Hjchw2CTmAEzCc4ueov0RkUZOrPAPbCFoYN0mJfQKBgQDZ+QMWJ7nWKaVR07cN\nSYonpEg12JD6xEpBG8GJI7Qxyf28HonnKL5UGI4h2qA6qN5w3DRQ9X9Mh8RM1jqf\nbsY0cNJgVR/bwU9Z1gr6lVU7r4q7b1aFADE75rA1rU0RSwL3kLSqUlxrKqAn5ccT\nq4vgO0aOHTibe9FPslFcs7X0vwKBgQDFOXIeEu8dcepUYmuh07UpDwhfB17ke4mh\nDPdJpC7APFh9e5iODY28asg9maV2aPl22G4cy2FaVfloJdqb9BPqmh/+LyRagKJE\nVxAjD9ARbebEu9s18FfcWNwPqwYrGMZfcwJASAF8Lo3hJUu8Uad5DRCVDkxcJ2gw\n5BIN3y05fwKBgAaeXw+fKS9tmE2Bxj8rCnzlqiOobc6Pg0my1A+b++6/GWtK6hkQ\nzaa0ECzK/K6LTiXTKeuDaNgkDzveDW2l6XLSMjEmpI8Bsa0iqLavLiVf0TCb0t67\nAMO234bhukNaKb7mr/W0BoZihvZvLbpVLSwj4KKUFJH0Eoj++yV7d3z1AoGBAJzC\ns1T6Ibsav3HBJOHkv3raKwI1fpRHKTascqXC7TH5BTEAG1rVpRHdIjnsNRswBxES\nqDsU4NWHvoysgd0xnN79EG7eE5wn4FJHjVkBCZXA8ArxciSmW3+V1ZxSiL2anJpj\ndKeZVCzbaARLu638jQvneYWwbrtUyzkJHtyNxomLAoGBALovpwzJbmJKS0DAukX3\nmEFzsuxrjCxBR8J/jMW6SoNBfgZrae/89Pd+Q1iSt4nkN2vRGB2RxRJeHH4LE8Ug\nGvA1jE0cEJWGz71lDz5oKmVjw9fCqXmesan1hFXD6aYEmHEJoxFAWrnxBeyrYC2p\noCokCD1vrGTAq8YR/oV96Myr\n-----END PRIVATE KEY-----\n",
+  "client_email": "blintstick-api@first-geode-340815.iam.gserviceaccount.com",
+  "client_id": "104154048379270365116",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/blintstick-api%40first-geode-340815.iam.gserviceaccount.com"
+}
