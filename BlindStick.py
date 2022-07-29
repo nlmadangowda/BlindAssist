@@ -1,8 +1,32 @@
-# https://cloud.google.com/vision/docs/setup
-
+import RPi.GPIO as GPIO
+import time
 from google.cloud import vision
 import io
+import cv2
+import sys
+import os
 
+
+GPIO.setwarnings(False)
+GPIO.setmode(GPIO.BCM)
+ 
+#set GPIO Pins
+GPIO_TRIGGER = 18
+GPIO_ECHO = 24
+RELAIS_1_GPIO = 12
+#set GPIO direction (IN / OUT)
+
+GPIO.setup(GPIO_TRIGGER, GPIO.OUT)
+GPIO.setup(GPIO_ECHO, GPIO.IN)
+GPIO.setup(RELAIS_1_GPIO, GPIO.OUT) # GPIO Assign mode
+GPIO.output(RELAIS_1_GPIO, True) # out
+
+cam = cv2.VideoCapture(0)
+cv2.namedWindow("press space to take a photo", cv2.WINDOW_NORMAL)
+cv2.resizeWindow("press space to take a photo", 500, 300)
+ret, frame = cam.read()
+cv2.imshow("press space to take a photo", frame)
+client = vision.ImageAnnotatorClient()
 
 def detect_faces(image):
     """Detects faces in an image."""
@@ -145,21 +169,70 @@ def pic_to_text(image):
     return text
 
 
+def distance():
+    # set Trigger to HIGH
+    GPIO.output(GPIO_TRIGGER, True)
+ 
+    # set Trigger after 0.01ms to LOW
+    time.sleep(0.00001)
+    GPIO.output(GPIO_TRIGGER, False)
+ 
+    StartTime = time.time()
+    StopTime = time.time()
+ 
+    # save StartTime
+    while GPIO.input(GPIO_ECHO) == 0:
+        StartTime = time.time()
+ 
+    # save time of arrival
+    while GPIO.input(GPIO_ECHO) == 1:
+        StopTime = time.time()
+ 
+    # time difference between start and arrival
+    TimeElapsed = StopTime - StartTime
+    # multiply with the sonic speed (34300 cm/s)
+    # and divide by 2, because there and back
+    distance = (TimeElapsed * 34300) / 2
+    return distance
+ 
 
 
-path = 'res/img1.jpg'
+if __name__ == '__main__':
+    try:
+        while True:
+            k = cv2.waitKey(1)
+            if k%256 == 27:
+                # ESC pressed
+                print("Escape hit, closing…")
+                break
+            ret, frame = cam.read()
+            cv2.imshow("press space to take a photo", frame)
 
-client = vision.ImageAnnotatorClient()
+            dist = distance()
+            # print ("Measured Distance = %.1f cm" % dist)
+            if dist <= 30:
+                GPIO.output(RELAIS_1_GPIO, False)
+                img_name = "res/img1.jpg"
+                cv2.imwrite(img_name, frame)
+                # cv2.imshow("press space to take a photo", frame)
+                print("{} written!".format(img_name))
+                with io.open(img_name, 'rb') as image_file:
+                    content = image_file.read()
+                image = vision.Image(content=content)
+                detect_faces(image)
+                detect_labels(image)
+                detect_crop_hints(image)
+                detect_landmarks(image)
+                detect_logos(image)
+                localize_objects(image)
+                pic_to_text(image)
+            else:
+                GPIO.output(RELAIS_1_GPIO, True) # out
+     
+        # Reset by pressing CTRL + C
+    except KeyboardInterrupt:
+        print("Measurement stopped by User")
+        GPIO.cleanup()
 
-with io.open(path, 'rb') as image_file:
-    content = image_file.read()
-
-image = vision.Image(content=content)
-
-detect_faces(image)
-detect_labels(image)
-detect_crop_hints(image)
-detect_landmarks(image)
-detect_logos(image)
-localize_objects(image)
-pic_to_text(image)
+cam.release()
+cv2.destroyAllWindows()

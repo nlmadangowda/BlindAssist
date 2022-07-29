@@ -2,8 +2,8 @@
 SetUp: for Raspberry Pi
 1. Boot RaspberryPi wit a 64bit OS
 2. set the clock speed to 2GHz
-3. sudo apt update
-4. sudo apt upgrade
+sudo apt update
+sudo apt upgrade
 5. pip install --upgrade google-cloud-vision
 6. curl -O https://dl.google.com/dl/cloudsdk/channels/rapid/downloads/google-cloud-sdk-374.0.0-linux-arm.tar.gz
 7. tar -xf google-cloud-sdk-374.0.0-linux-arm.tar.gz
@@ -14,3 +14,10 @@ SetUp: for Raspberry Pi
 12. sudo apt install git
 13. git clone https://github.com/nlmadangowda/BlindAssist.git
 14. python BlindStick.py
+
+
+export GOOGLE_APPLICATION_CREDENTIALS="/home/pi/visionapi-348017-da8a228fd641.json"
+
+Ref:
+https://www.youtube.com/watch?v=p7zpfXG15ho
+https://cloud.google.com/vision/docs/setup
