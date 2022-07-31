@@ -218,19 +218,14 @@ def GPS_Info():
     nmea_time = NMEA_buff[0]                    #extract time from GPGGA string
     nmea_latitude = NMEA_buff[1]                #extract latitude from GPGGA string
     nmea_longitude = NMEA_buff[3]               #extract longitude from GPGGA string
-    
-    print("NMEA Time: ", nmea_time,'\n')
     print ("NMEA Latitude:", nmea_latitude,"NMEA Longitude:", nmea_longitude,'\n')
-    
     lat = float(nmea_latitude)                  #convert string into float for calculation
     longi = float(nmea_longitude)               #convertr string into float for calculation
-    
     lat_in_degrees = convert_to_degrees(lat)    #get latitude in degree decimal format
     long_in_degrees = convert_to_degrees(longi) #get longitude in degree decimal format
     dev = pb.devices[0]
-
-    push = dev.push_note("lat", lat_in_degrees)
-    push = dev.push_note("lon", long_in_degrees)
+    map_link = 'http://maps.google.com/?q=' + lat_in_degrees + ',' + long_in_degrees    #create link to plot location on Google map
+    push = dev.push_note("location", map_link)
 
     
 #convert raw NMEA string into degree decimal format   
@@ -242,28 +237,28 @@ def convert_to_degrees(raw_value):
     position = "%.4f" %(position)
     return position
     
-gps_timer = time.time()
-gps_timeout = 2
+gps_timer = int(time.time())
+gps_timeout = 0
 if __name__ == '__main__':
     try:
         while True:
-            k = cv2.waitKey(1)
-            if k%256 == 27:
-                # ESC pressed
-                print("Escape hit, closing…")
-                break
+            # k = cv2.waitKey(1)
+            # if k%256 == 27:
+            #     # ESC pressed
+            #     print("Escape hit, closing…")
+            #     break
 
-            if(int(time.time()) - gps_timer >= gps_timeout):
+            if(int(time.time()) - gps_timer > gps_timeout):
                 gps_timer = int(time.time())
-                try:
-                    received_data = (str)(ser.readline())                   #read NMEA string received           
-                    GPGGA_data_available = received_data.find(gpgga_info)   #check for NMEA GPGGA string                 
-                    if (GPGGA_data_available>0):
-                        GPGGA_buffer = received_data.split("$GPGGA,",1)[1]  #store data coming after "$GPGGA," string 
-                        NMEA_buff = (GPGGA_buffer.split(','))               #store comma separated data in buffer
-                        GPS_Info() 
-                except serial.serialutil.SerialException:
-                    print("GPS data not found")
+                # try:
+                received_data = (str)(ser.readline())                   #read NMEA string received           
+                GPGGA_data_available = received_data.find(gpgga_info)   #check for NMEA GPGGA string                 
+                if (GPGGA_data_available>0):
+                    GPGGA_buffer = received_data.split("$GPGGA,",1)[1]  #store data coming after "$GPGGA," string 
+                    NMEA_buff = (GPGGA_buffer.split(','))               #store comma separated data in buffer
+                    GPS_Info() 
+                # except serial.serialutil.SerialException:
+                #     print("GPS data not found")
 
            
             ret, frame = cam.read()
@@ -273,7 +268,10 @@ if __name__ == '__main__':
             R_dist = distance(GPIO_TRIGGER_R,GPIO_ECHO_R)
             # print ("L= %.1f cm" % L_dist)
             # print ("R= %.1f cm" % R_dist)
-            if(L_dist < R_dist):
+            if(R_dist < obj_range and L_dist < obj_range):
+                obj_found = 3
+                text = "Stop"
+            elif(L_dist < R_dist):
                 if(L_dist < obj_range):
                     obj_found = 1
                     text = "obf found in Left move right"
@@ -281,17 +279,14 @@ if __name__ == '__main__':
                 if(R_dist < obj_range):
                     obj_found = 2
                     text = "obj found in Right move left"
-            elif(R_dist < obj_range or L_dist < obj_range):
-                obj_found = 3
-                text = "Stop"
             else:
                 print("no obj found")
 
             if(obj_found!=0):
                 obj_found=0
+                GPIO.output(RELAIS_1_GPIO, False)
                 text = text.replace(' ', '_')
                 call([cmd_beg+cmd_out+text+cmd_end], shell=True)
-                GPIO.output(RELAIS_1_GPIO, False)
                 img_name = "res/img1.jpg"
                 cv2.imwrite(img_name, frame)
                 print("{} written!".format(img_name))
